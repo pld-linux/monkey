@@ -1,13 +1,12 @@
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
-Version:	0.8.4
-%define	_rel	2
+Version:	0.8.5
 Release:	1
 Group:		Networking/Daemons
 License:	GPL
-Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}-%{_rel}.tar.gz
-# Source0-md5:	09858b3ebdaa70200b2075926eabb20b
+Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
+# Source0-md5:	2ffc8c8c32d760078cff7f0d49efbd66
 Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
@@ -31,7 +30,7 @@ Monkey is a small WebServer written 100% in C.
 Monkey to ma³y WebServer napisany w 100% w jêzyku C.
 
 %prep
-%setup -q -n %{name}-%{version}-%{_rel}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
