@@ -1,56 +1,73 @@
 #!/bin/sh
 #
-# monkey     monkey  
+# monkey	monkey  
 #
-# chkconfig:    2345 95 5
+# chkconfig:	2345 95 5
 #
-# description: monkey  WebServer daemon
+# description:	monkey WebServer daemon
 #
 # $Id$
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		# nls "ERROR: Networking is down. %s can't be run." <service>
+		msg_network_down monkey
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+
 case "$1" in
-    start)
-        # Check if the service is already running?
-        if [ ! -f /var/lock/subsys/monkey ]; then
-                # show "Starting %s service" monkey
-                msg_starting monkey
-                daemon monkey -D
-                RETVAL=$?
-                [ $RETVAL -eq 0 ] && touch /var/lock/subsys/monkey
-        else
-                # show "%s service is already running." monkey
-                msg_already_running monkey
-                exit 1
-        fi
+  start)
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/monkey ]; then
+		# show "Starting %s service" monkey
+		msg_starting monkey
+		daemon monkey -D
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/monkey
+	else
+		# show "%s service is already running." monkey
+		msg_already_running monkey
+		exit 1
+	fi
 	;;
-    stop)
-        # Stop daemons.
-        # show "Stopping %s service" monkey
-        if [ -f /var/lock/subsys/monkey ]; then
-                msg_stopping monkey
-                killproc monkey
-                RETVAL=$?
-                rm -f /var/lock/subsys/monkey
-        else
-                # show "%s service is not running." monkey
-                msg_not_running monkey
-                exit 1
-        fi
-        ;;
-  restart)
-        $0 stop
-        $0 start
-        ;;
-    *)
-        # show "Usage: %s {start|stop|restart}" $0
-        msg_usage "$0 {start|stop|restart}"
-        exit 1
+  stop)
+	if [ -f /var/lock/subsys/monkey ]; then
+		# Stop daemons.
+		# show "Stopping %s service" monkey
+		msg_stopping monkey
+		killproc monkey
+		RETVAL=$?
+		rm -f /var/lock/subsys/monkey
+	else
+		# show "%s service is not running." monkey
+		msg_not_running monkey
+		exit 1
+	fi
+	;;
+  status)
+	status monkey
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  *)
+	# show "Usage: %s {start|stop|restart|reload|status}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
+	exit 1
 
 esac
-
 
 exit $RETVAL
 
