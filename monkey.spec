@@ -16,8 +16,6 @@ Requires(post,preun):	/sbin/chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	webserver
 Provides:	httpd
-Obsoletes:	httpd
-Obsoletes:	webserver
 
 %define		_bindir		/usr/sbin
 %define		_sysconfdir	/etc/httpd
