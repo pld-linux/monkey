@@ -3,7 +3,7 @@ Summary(pl):	Ma³y WebServer
 Name:		monkey
 Version:	0.8.4
 %define	_rel	2
-Release:	0.3
+Release:	1
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}-%{_rel}.tar.gz
