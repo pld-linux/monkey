@@ -25,7 +25,7 @@ else
 	exit 0
 fi
 
-
+RETVAL=0
 case "$1" in
   start)
 	# Check if the service is already running?
@@ -38,7 +38,6 @@ case "$1" in
 	else
 		# show "%s service is already running." monkey
 		msg_already_running monkey
-		exit 1
 	fi
 	;;
   stop)
@@ -47,26 +46,25 @@ case "$1" in
 		# show "Stopping %s service" monkey
 		msg_stopping monkey
 		killproc monkey
-		RETVAL=$?
 		rm -f /var/lock/subsys/monkey
 	else
 		# show "%s service is not running." monkey
 		msg_not_running monkey
-		exit 1
 	fi
 	;;
   status)
 	status monkey
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|reload|status}"
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
-
+	# show "Usage: %s {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
