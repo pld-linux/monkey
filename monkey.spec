@@ -6,6 +6,7 @@ Release:	0.1
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkey.sourceforge.net/versions/%{name}-%{version}.tar.gz
+# Source0-md5:	034339ee1eedf5b92a778f451ca73477
 Source1:	%{name}d.init
 Patch0:		%{name}-redhat.patch
 URL:		http://monkeyd.sourceforge.net/
