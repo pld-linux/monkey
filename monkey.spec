@@ -2,7 +2,7 @@ Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
 Version:	0.8.2
-Release:	0.1
+Release:	0.2
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
@@ -83,13 +83,13 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del monkey
 fi
 
-
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog HowItWorks.txt README
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
 %attr(755,root,root) %{_bindir}/*
-/etc/rc.d/init.d/*
+%attr(754,root,root) /etc/rc.d/init.d/*
 %attr(000,root,root) %{httpdir}/cgi-bin/*
+# index.html would be replaced/removed with the package!!!
 %{httpdir}/html/*
 %{_var}/log/monkey
