@@ -2,7 +2,7 @@ Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
 Version:	0.8.2
-Release:	0.2
+Release:	0.3
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
@@ -48,11 +48,8 @@ Monkey to ma³y WebServer napisany w 100% w jêzyku C.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
-install -d $RPM_BUILD_ROOT%{_bindir} \
-	$RPM_BUILD_ROOT%{_sysconfdir} \
-	$RPM_BUILD_ROOT%{httpdir}/cgi-bin \
-	$RPM_BUILD_ROOT%{httpdir}/html/{imgs,php,docs} \
+install -d $RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_sysconfdir},%{_bindir}} \
+	$RPM_BUILD_ROOT{%{httpdir}/cgi-bin,%{httpdir}/html/{imgs,php,docs}} \
 	$RPM_BUILD_ROOT%{_var}/log/monkey
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/monkeyd
@@ -68,19 +65,19 @@ install htdocs/docs/*.* $RPM_BUILD_ROOT%{httpdir}/html/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/chkconfig --add monkey
+/sbin/chkconfig --add monkeyd
 if [ -f /var/lock/subsys/monkey ]; then
-	/etc/rc.d/init.d/monkey restart 1>&2
+	/etc/rc.d/init.d/monkeyd restart 1>&2
 else
-	echo "Type \"/etc/rc.d/init.d/monkey start\" to start monkey." 1>&2
+	echo "Type \"/etc/rc.d/init.d/monkeyd start\" to start monkey." 1>&2
 fi
 
 %preun
 if [ "$1" = "0" ]; then
 	if [ -f /var/lock/subsys/monkey ]; then
-		/etc/rc.d/init.d/monkey stop 1>&2
+		/etc/rc.d/init.d/monkeyd stop 1>&2
 	fi
-	/sbin/chkconfig --del monkey
+	/sbin/chkconfig --del monkeyd
 fi
 
 %files
