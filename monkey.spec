@@ -1,14 +1,16 @@
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
-Version:	0.7.0
+Version:	0.7.1
 Release:	0.1
 Group:		Networking/Daemons
 License:	GPL
-Source0:	http://monkey.sourceforge.net/versions/%{name}-%{version}.tar.gz
-# Source0-md5:	034339ee1eedf5b92a778f451ca73477
+Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
+# Source0-md5:	b5d2475cd251a690c5beffa440ce36ce
 Source1:	%{name}d.init
-Patch0:		%{name}-redhat.patch
+Patch0:		%{name}-fix_includes.patch
+Patch1:		%{name}-pld.patch
+Patch2:		%{name}-security.patch
 URL:		http://monkeyd.sourceforge.net/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
@@ -30,8 +32,9 @@ Monkey to ma³y WebServer napisany w 100% w jêzyku C.
 
 %prep
 %setup -q
-
-%patch -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 ./configure \
@@ -89,5 +92,6 @@ fi
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
 %attr(755,root,root) %{_bindir}/*
 /etc/rc.d/init.d/*
-%{httpdir}/*/*
+%attr(000,root,root) %{httpdir}/cgi-bin/*
+%{httpdir}/html/*
 %{_var}/log/monkey
