@@ -1,0 +1,12 @@
+diff -burN monkey-0.7.1-orig/htdocs/php/index.php monkey-0.7.1/htdocs/php/index.php
+--- monkey-0.7.1-orig/htdocs/php/index.php	Sat May 31 05:40:40 2003
++++ monkey-0.7.1/htdocs/php/index.php	Mon Jun  9 13:15:34 2003
+@@ -6,7 +6,7 @@
+ // Your PHP support is not working...
+ //
+ //
+-	echo phpinfo();
++	echo 'PHP works!';
+ ?>
+ 
+ </BODY>

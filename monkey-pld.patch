@@ -1,0 +1,11 @@
+--- monkey-0.7.0/configure.orig	Mon May 12 18:07:36 2003
++++ monkey-0.7.0/configure	Mon May 12 18:07:50 2003
+@@ -343,7 +343,7 @@
+ create_info()
+ {
+ cat > $INCDIR/info.h <<EOF
+-#define OS "$SYSNAME"
++#define OS "PLD/$SYSNAME"
+ #define VERSION "$VERSION" /* Version de Monkey */
+ #define MONKEY_PATH_CONF "$sysconfdir"
+ EOF
