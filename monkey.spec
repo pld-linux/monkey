@@ -1,12 +1,12 @@
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
-Version:	0.8.1
+Version:	0.8.2
 Release:	0.1
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
-# Source0-md5:	eba08610d2bded7b08b890565bf85b9e
+# Source0-md5:	17dfa899380a578787a6a309b476c9fc
 Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
