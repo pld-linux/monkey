@@ -3,8 +3,8 @@ Summary(pl):	Ma³y WebServer
 Name:		monkey
 Version:	0.6.3
 Release:	0.1
-Group:		Daemons
-License:	gpl
+Group:		Networking/Daemons
+License:	GPL
 Source0:	http://monkey.sourceforge.net/versions/%{name}-%{version}.tar.gz
 Source1:	%{name}d.init
 Patch0:		%{name}-%{version}-redhat.patch
