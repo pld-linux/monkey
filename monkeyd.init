@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# monkey     monkey  
+#
+# chkconfig:    2345 95 5
+#
+# description: monkey  WebServer daemon
+#
+# $Id$
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+case "$1" in
+    start)
+        # Check if the service is already running?
+        if [ ! -f /var/lock/subsys/monkey ]; then
+                # show "Starting %s service" monkey
+                msg_starting monkey
+                daemon monkey -D
+                RETVAL=$?
+                [ $RETVAL -eq 0 ] && touch /var/lock/subsys/monkey
+        else
+                # show "%s service is already running." monkey
+                msg_already_running monkey
+                exit 1
+        fi
+	;;
+    stop)
+        # Stop daemons.
+        # show "Stopping %s service" monkey
+        if [ -f /var/lock/subsys/monkey ]; then
+                msg_stopping monkey
+                killproc monkey
+                RETVAL=$?
+                rm -f /var/lock/subsys/monkey
+        else
+                # show "%s service is not running." monkey
+                msg_not_running monkey
+                exit 1
+        fi
+        ;;
+  restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+        # show "Usage: %s {start|stop|restart}" $0
+        msg_usage "$0 {start|stop|restart}"
+        exit 1
+
+esac
+
+
+exit $RETVAL
+
+# This must be last line !
+# vi:syntax=sh:tw=78:ts=8:sw=4
