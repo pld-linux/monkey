@@ -21,7 +21,7 @@ Obsoletes:	httpd
 Obsoletes:	webserver
 
 %define		_bindir		/usr/sbin
-%define         _sysconfdir     /etc/httpd
+%define		_sysconfdir	/etc/httpd
 %define		httpdir		/home/services/httpd
 
 %description
@@ -38,11 +38,11 @@ Monkey to ma³y WebServer napisany w 100% w jêzyku C.
 
 %build
 ./configure \
-    --cgibin=%{httpdir}/cgi-bin \
-    --sysconfdir=%{_sysconfdir} \
-    --datadir=%{httpdir}/html \
-    --logdir=/var/log/monkey \
-    --lang=en
+	--cgibin=%{httpdir}/cgi-bin \
+	--sysconfdir=%{_sysconfdir} \
+	--datadir=%{httpdir}/html \
+	--logdir=/var/log/monkey \
+	--lang=en
 
 %{__make} \
 	CFLAGS="%{rpmcflags}"
@@ -72,17 +72,17 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add monkey
 if [ -f /var/lock/subsys/monkey ]; then
-        /etc/rc.d/init.d/monkey restart 1>&2
+	/etc/rc.d/init.d/monkey restart 1>&2
 else
-        echo "Type \"/etc/rc.d/init.d/monkey start\" to start monkey." 1>&2
+	echo "Type \"/etc/rc.d/init.d/monkey start\" to start monkey." 1>&2
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/monkey ]; then
-                /etc/rc.d/init.d/monkey stop 1>&2
-        fi
-        /sbin/chkconfig --del monkey
+	if [ -f /var/lock/subsys/monkey ]; then
+		/etc/rc.d/init.d/monkey stop 1>&2
+	fi
+	/sbin/chkconfig --del monkey
 fi
 
 
