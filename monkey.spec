@@ -1,13 +1,13 @@
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
-Version:	0.6.3
+Version:	0.7.0
 Release:	0.1
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkey.sourceforge.net/versions/%{name}-%{version}.tar.gz
 Source1:	%{name}d.init
-Patch0:		%{name}-%{version}-redhat.patch
+Patch0:		%{name}-redhat.patch
 URL:		http://monkeyd.sourceforge.net/
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
@@ -84,7 +84,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog CREDITOS HowItWorks.txt NEWS README
+%doc ChangeLog HowItWorks.txt README
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
 %attr(755,root,root) %{_bindir}/*
 /etc/rc.d/init.d/*
