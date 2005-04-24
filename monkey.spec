@@ -1,12 +1,12 @@
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
-Version:	0.9.0
+Version:	0.9.1
 Release:	1
 Group:		Networking/Daemons
 License:	GPL
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
-# Source0-md5:	e8bcde30b93b84656897bcd60683bcf0
+# Source0-md5:	e4febf180e9a708fa9eccc9286c02eab
 Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
@@ -80,7 +80,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog HowItWorks.txt README
+%doc ChangeLog.txt HowItWorks.txt MODULES README
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
 %attr(755,root,root) %{_bindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
