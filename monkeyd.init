@@ -17,7 +17,6 @@
 # Check that networking is up.
 if is_yes "${NETWORKING}"; then
 	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
-		# nls "ERROR: Networking is down. %s can't be run." <service>
 		msg_network_down monkey
 		exit 1
 	fi
@@ -30,25 +29,21 @@ case "$1" in
   start)
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/monkey ]; then
-		# show "Starting %s service" monkey
 		msg_starting monkey
 		daemon monkey -D
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/monkey
 	else
-		# show "%s service is already running." monkey
 		msg_already_running monkey
 	fi
 	;;
   stop)
 	if [ -f /var/lock/subsys/monkey ]; then
 		# Stop daemons.
-		# show "Stopping %s service" monkey
 		msg_stopping monkey
 		killproc monkey
 		rm -f /var/lock/subsys/monkey
 	else
-		# show "%s service is not running." monkey
 		msg_not_running monkey
 	fi
 	;;
@@ -62,7 +57,6 @@ case "$1" in
 	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|force-reload|status}"
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
 esac
