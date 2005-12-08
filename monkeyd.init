@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# monkey	monkey  
+# monkey	monkey
 #
 # chkconfig:	2345 95 5
 #
