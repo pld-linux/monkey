@@ -11,8 +11,8 @@ Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
 URL:		http://monkeyd.sourceforge.net/
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	webserver
 Provides:	httpd
@@ -81,7 +81,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog.txt HowItWorks.txt MODULES README
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %attr(755,root,root) %{_bindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(000,root,root) %{httpdir}/cgi-bin/*
