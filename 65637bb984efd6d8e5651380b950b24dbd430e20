@@ -1,0 +1,3 @@
+- sec update (0.8.2)
+  bug:
+  get_real_string() function allows for a Denial of Service
