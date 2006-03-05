@@ -1,24 +1,28 @@
+# TODO
+# - httpdir conflicts with apache2
+# - ghost and verify to index.html
 Summary:	Small WebServer
 Summary(pl):	Ma³y WebServer
 Name:		monkey
 Version:	0.9.1
 Release:	1
-Group:		Networking/Daemons
 License:	GPL
+Group:		Networking/Daemons
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
 # Source0-md5:	e4febf180e9a708fa9eccc9286c02eab
 Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
 URL:		http://monkeyd.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Provides:	webserver
-Provides:	httpd
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/usr/sbin
 %define		_sysconfdir	/etc/httpd
+# FIXME apache owns that dir too. conflict or choose other dir. imho
 %define		httpdir		/home/services/httpd
 
 %description
@@ -64,17 +68,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add monkeyd
-if [ -f /var/lock/subsys/monkey ]; then
-	/etc/rc.d/init.d/monkeyd restart 1>&2
-else
-	echo "Type \"/etc/rc.d/init.d/monkeyd start\" to start monkey." 1>&2
-fi
+%service monkeyd restart
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/monkey ]; then
-		/etc/rc.d/init.d/monkeyd stop 1>&2
-	fi
+	%service monkeyd stop
 	/sbin/chkconfig --del monkeyd
 fi
 
@@ -85,6 +83,6 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %attr(754,root,root) /etc/rc.d/init.d/*
 %attr(000,root,root) %{httpdir}/cgi-bin/*
-# index.html would be replaced/removed with the package!!!
+# FIXME index.html would be replaced/removed with the package!!!
 %{httpdir}/html/*
 %{_var}/log/monkey
