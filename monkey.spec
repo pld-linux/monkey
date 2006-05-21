@@ -45,6 +45,7 @@ Monkey to ma³y WebServer napisany w 100% w jêzyku C.
 	--lang=en
 
 %{__make} \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
 
 %install
