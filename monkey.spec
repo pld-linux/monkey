@@ -2,7 +2,7 @@
 # - httpdir conflicts with apache2
 # - ghost and verify to index.html
 Summary:	Small WebServer
-Summary(pl.UTF-8):   Mały WebServer
+Summary(pl.UTF-8):	Mały WebServer
 Name:		monkey
 Version:	0.9.1
 Release:	1
