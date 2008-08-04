@@ -4,12 +4,12 @@
 Summary:	Small WebServer
 Summary(pl.UTF-8):	Mały WebServer
 Name:		monkey
-Version:	0.9.1
+Version:	0.9.2
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://monkeyd.sourceforge.net/versions/%{name}-%{version}.tar.gz
-# Source0-md5:	e4febf180e9a708fa9eccc9286c02eab
+# Source0-md5:	1ee81de2c8f34398ad1e096212058a7b
 Source1:	%{name}d.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-security.patch
