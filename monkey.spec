@@ -2,7 +2,7 @@
 # - httpdir conflicts with apache2
 # - ghost and verify to index.html
 Summary:	Small WebServer
-Summary(pl.UTF-8):	Mały WebServer
+Summary(pl.UTF-8):	Mały serwer WWW
 Name:		monkey
 Version:	0.9.2
 Release:	1
@@ -29,7 +29,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Monkey is a small WebServer written 100% in C.
 
 %description -l pl.UTF-8
-Monkey to mały WebServer napisany w 100% w języku C.
+Monkey to mały serwer WWW napisany w 100% w języku C.
 
 %prep
 %setup -q
