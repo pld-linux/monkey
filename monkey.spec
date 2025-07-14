@@ -33,8 +33,8 @@ Monkey to mały serwer WWW napisany w 100% w języku C.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 ./configure \
