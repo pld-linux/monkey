@@ -1,0 +1,86 @@
+--- monkey-1.8.5.orig/CMakeLists.txt	2025-09-10 21:39:58.000000000 +0200
++++ monkey-1.8.5/CMakeLists.txt	2026-05-08 20:56:17.175740550 +0200
+@@ -263,6 +263,45 @@
+   set(CMAKE_MACOSX_RPATH ${CMAKE_MACOSX_RPATH};${CMAKE_INSTALL_FULL_LIBDIR}/monkey)
+ endif()
+ 
++# Install path definitions
++if(BUILD_LOCAL)
++  set(MK_PATH_CONF     "${CMAKE_CURRENT_BINARY_DIR}/conf/")
++  set(MK_PATH_PIDPATH  "${CMAKE_CURRENT_BINARY_DIR}")
++  set(MK_PATH_WWW      "${CMAKE_CURRENT_SOURCE_DIR}/htdocs/")
++  set(MK_PATH_LOG      "${CMAKE_CURRENT_BINARY_DIR}/log/")
++  file(MAKE_DIRECTORY  ${MK_PATH_LOG})
++else()
++  if(NOT INSTALL_SYSCONFDIR)
++    set(MK_PATH_CONF ${CMAKE_INSTALL_FULL_SYSCONFDIR}/monkey/ CACHE STRING "Server configuration")
++  else()
++    set(MK_PATH_CONF ${INSTALL_SYSCONFDIR}/ CACHE STRING "Server configuration")
++  endif()
++
++  if(NOT INSTALL_LOGDIR)
++    set(MK_PATH_LOG ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/log/monkey CACHE STRING "Server logs")
++  else()
++    set(MK_PATH_LOG ${INSTALL_LOGDIR} CACHE STRING "Server logs")
++  endif()
++
++  if(NOT PID_PATH)
++    set(MK_PATH_PIDPATH ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/run/ CACHE STRING "Server PID path")
++  else()
++    set(MK_PATH_PIDPATH ${PID_PATH} CACHE STRING "Server PID path")
++  endif()
++
++  if(NOT INSTALL_WEBROOTDIR)
++    set(MK_PATH_WWW ${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/www/monkey CACHE STRING "Server Web documents")
++  else()
++    set(MK_PATH_WWW ${INSTALL_WEBROOTDIR} CACHE STRING "Server Web documents")
++  endif()
++
++  if(NOT INSTALL_INCLUDEDIR)
++    set(MK_PATH_HEADERS ${CMAKE_INSTALL_INCLUDEDIR}/monkey CACHE STRING "Server header files (development)")
++  else()
++    set(MK_PATH_HEADERS ${INSTALL_INCLUDEDIR} CACHE STRING "Server header files (development)")
++  endif()
++endif()
++
+ if(DEFAULT_PORT)
+   set(MK_CONF_LISTEN  ${DEFAULT_PORT})
+ endif()
+--- monkey-1.8.5.orig/include/CMakeLists.txt	2025-09-10 21:39:58.000000000 +0200
++++ monkey-1.8.5/include/CMakeLists.txt	2026-05-08 20:56:20.515948174 +0200
+@@ -1,11 +1,6 @@
+-# MK_CORE
+-if(NOT WITHOUT_HEADERS)
+-  install(FILES "mk_core.h"
+-    DESTINATION include/
+-    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+-
+-  file(GLOB headers "mk_core/*.h")
+-  install(FILES ${headers}
+-    DESTINATION include/mk_core
+-    PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
++if(NOT BUILD_LOCAL)
++  install(DIRECTORY
++      ${CMAKE_CURRENT_SOURCE_DIR}/monkey/
++    DESTINATION
++      ${MK_PATH_HEADERS})
+ endif()
+--- monkey-1.8.5.orig/conf/CMakeLists.txt	2025-09-10 21:39:58.000000000 +0200
++++ monkey-1.8.5/conf/CMakeLists.txt	2026-05-08 20:56:56.686503265 +0200
+@@ -15,3 +15,16 @@
+   "${PROJECT_SOURCE_DIR}/conf/sites/default.in"
+   "${PROJECT_BINARY_DIR}/conf/sites/default"
+   )
++
++if(NOT BUILD_LOCAL)
++  install(FILES
++      ${PROJECT_BINARY_DIR}/conf/monkey.conf
++      ${PROJECT_BINARY_DIR}/conf/monkey.mime
++      ${PROJECT_BINARY_DIR}/conf/plugins.load
++    DESTINATION
++      ${MK_PATH_CONF})
++  install(FILES
++      ${PROJECT_BINARY_DIR}/conf/sites/default
++    DESTINATION
++      ${MK_PATH_CONF}/sites/)
++endif()
