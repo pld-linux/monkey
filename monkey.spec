@@ -25,7 +25,7 @@ Provides:	webserver
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sysconfdir	/etc/monkey
-%define		_webdir		/var/www/monkey
+%define		_webdir		/home/services/monkey
 
 %description
 Monkey is a fast and lightweight web server for Linux. It has been
@@ -120,7 +120,7 @@ fi
 %dir %attr(750,monkey,http) %{_var}/log/monkey
 %dir %attr(750,monkey,http) %{_var}/run/monkey
 %{systemdtmpfilesdir}/monkey.conf
-%dir %attr(755,root,root) %{_webdir}
+%dir %{_webdir}
 
 %files devel
 %defattr(644,root,root,755)
