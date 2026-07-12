@@ -2,7 +2,7 @@ Summary:	A fast and lightweight web server for Linux
 Summary(pl.UTF-8):	Szybki i lekki serwer WWW dla Linuksa
 Name:		monkey
 Version:	1.8.5
-Release:	1
+Release:	2
 License:	Apache v2
 Group:		Networking/Daemons
 Source0:	https://github.com/monkey/monkey/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
