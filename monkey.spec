@@ -21,6 +21,8 @@ Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	systemd-units >= 38
+Provides:	group(http)
+Provides:	user(monkey)
 Provides:	webserver
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -82,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 %groupadd -r -g 51 http
-%useradd -r -u 214 -d %{_webdir} -s /bin/false -c "Monkey HTTP Server" -g http monkey
+%useradd -r -u 237 -d %{_webdir} -s /bin/false -c "Monkey HTTP Server" -g http monkey
 
 %post
 /sbin/chkconfig --add monkey
