@@ -103,13 +103,15 @@ fi
 %defattr(644,root,root,755)
 %doc ChangeLog README.md
 %dir %{_sysconfdir}
-%dir %{_sysconfdir}/plugins
-%dir %{_sysconfdir}/sites
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/monkey.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/monkey.mime
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugins.load
+%dir %{_sysconfdir}/sites
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/sites/default
+%dir %{_sysconfdir}/plugins
+%dir %{_sysconfdir}/plugins/dirlisting
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugins/dirlisting/dirhtml.conf
+%dir %{_sysconfdir}/plugins/mandril
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugins/mandril/mandril.conf
 %{_sysconfdir}/plugins/dirlisting/themes
 %attr(755,root,root) %{_sbindir}/monkey
