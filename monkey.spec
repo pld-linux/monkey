@@ -112,8 +112,8 @@ fi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/plugins/mandril/mandril.conf
 %{_sysconfdir}/plugins/dirlisting/themes
 %attr(755,root,root) %{_sbindir}/monkey
-%attr(755,root,root) %{_libdir}/monkey-dirlisting.so
-%attr(755,root,root) %{_libdir}/monkey-mandril.so
+%{_libdir}/monkey-dirlisting.so
+%{_libdir}/monkey-mandril.so
 %{systemdunitdir}/monkey.service
 %attr(754,root,root) /etc/rc.d/init.d/monkey
 %{_mandir}/man1/monkey.1*
