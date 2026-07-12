@@ -13,7 +13,7 @@ Source3:	monkeyd.init
 Patch0:		%{name}-cmake-install-paths.patch
 URL:		https://monkey-project.com/
 BuildRequires:	cmake >= 3.20
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.605
 Requires(post,preun):	/sbin/chkconfig
 Requires(post,preun,postun):	systemd-units >= 38
 Requires(pre):	/bin/id
@@ -56,9 +56,7 @@ Pliki nagłówkowe do tworzenia wtyczek dla serwera HTTP Monkey.
 %patch -P0 -p1
 
 %build
-install -d build
-cd build
-%cmake .. \
+%cmake -B build \
 	-DCMAKE_INSTALL_SBINDIR=%{_sbindir} \
 	-DINSTALL_SYSCONFDIR=%{_sysconfdir} \
 	-DINSTALL_WEBROOTDIR=%{_webdir} \
@@ -67,12 +65,13 @@ cd build
 	-DDEFAULT_USER=http \
 	-DDEFAULT_PORT=80
 
-%{__make}
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C build install DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{systemdunitdir},%{systemdtmpfilesdir},%{_webdir},/etc/rc.d/init.d}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{systemdunitdir}/monkey.service
